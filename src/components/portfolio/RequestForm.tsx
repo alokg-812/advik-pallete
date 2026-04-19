@@ -74,8 +74,8 @@ export const RequestForm = () => {
                 className="relative glass rounded-[2rem] p-6 sm:p-10 space-y-6"
               >
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <Field name="name" label="Your name" placeholder="e.g. Alex" />
-                  <Field name="contact" label="Email or @handle" placeholder="you@email.com / @ig" />
+                  <Field name="name" label="Your name" placeholder="e.g. Advik" />
+                  <Field name="contact" label="Email or @handle" placeholder="advik@gmail.com / @ig" />
                 </div>
 
                 <div>
@@ -103,7 +103,7 @@ export const RequestForm = () => {
                 <Field
                   name="desc"
                   label="Describe the vibe"
-                  placeholder="Portrait of my girlfriend in cyberpunk neon style…"
+                  placeholder="Portrait of my friend enjoying a sunset view."
                   textarea
                 />
 

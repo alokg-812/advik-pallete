@@ -7,20 +7,28 @@ export const Footer = () => {
           <span className="font-display font-bold">Advik.Pallete<span className="text-gradient-cool">.art</span></span>
         </div>
         <div className="text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Painted with ❤️ + a lot of caffeine.
+          © {new Date().getFullYear()} Painted with ❤️ + a lot of homeworks😁.
         </div>
         <div className="flex gap-3">
-          {["Instagram", "TikTok", "Twitter"].map((s) => (
-            <a
-              key={s}
-              href="#"
-              className="px-4 py-2 rounded-full glass text-sm hover:bg-white/10 transition-colors"
-            >
-              {s}
-            </a>
-          ))}
+          <a
+            href="https://instagram.com/advik_pallete"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-full glass text-sm hover:bg-white/10 transition-colors"
+          >
+            Instagram
+          </a>
+
+          <a
+            href="https://www.youtube.com/@anjaligupta3818"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-full glass text-sm hover:bg-white/10 transition-colors"
+          >
+            YouTube
+          </a>
         </div>
-      </div>
+        </div>
     </footer>
   );
 };
