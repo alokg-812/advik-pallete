@@ -71,8 +71,8 @@ export const Hero = () => {
             className="mt-10 flex items-center gap-8"
           >
             {[
-              { n: "120+", l: "Pieces" },
-              { n: "60+", l: "Happy clients" },
+              { n: "10+", l: "Pieces" },
+              { n: "3+", l: "Happy clients" },
               { n: "3 yrs", l: "Painting" },
             ].map((s) => (
               <div key={s.l}>
