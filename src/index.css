@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark by default — Gen Z neon palette */
+    --background: 240 30% 6%;
+    --foreground: 280 20% 98%;
+
+    --card: 250 30% 10%;
+    --card-foreground: 280 20% 98%;
+
+    --popover: 250 30% 10%;
+    --popover-foreground: 280 20% 98%;
+
+    --primary: 271 76% 53%;          /* Neon Purple #8A2BE2 */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 271 100% 70%;
+
+    --secondary: 250 30% 14%;
+    --secondary-foreground: 280 20% 98%;
+
+    --muted: 250 20% 18%;
+    --muted-foreground: 260 15% 70%;
+
+    --accent: 181 100% 44%;          /* Electric Blue #00DBDE */
+    --accent-foreground: 240 30% 6%;
+
+    --pink: 349 100% 65%;            /* Hot Pink #FF4D6D */
+    --orange: 31 100% 64%;           /* Soft Orange #FFB347 */
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 260 30% 20%;
+    --input: 260 30% 16%;
+    --ring: 271 76% 53%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(271 76% 53%) 0%, hsl(349 100% 65%) 50%, hsl(31 100% 64%) 100%);
+    --gradient-cool: linear-gradient(135deg, hsl(271 76% 53%), hsl(181 100% 44%));
+    --gradient-warm: linear-gradient(135deg, hsl(349 100% 65%), hsl(31 100% 64%));
+    --gradient-bg: radial-gradient(ellipse at top left, hsl(271 76% 20% / 0.6), transparent 60%),
+                   radial-gradient(ellipse at bottom right, hsl(181 100% 25% / 0.4), transparent 60%),
+                   radial-gradient(ellipse at center, hsl(349 100% 30% / 0.25), transparent 70%);
+
+    /* Glows / shadows */
+    --shadow-glow: 0 0 40px hsl(271 100% 70% / 0.45);
+    --shadow-pink: 0 0 40px hsl(349 100% 65% / 0.45);
+    --shadow-cyan: 0 0 40px hsl(181 100% 44% / 0.4);
+    --shadow-card: 0 20px 60px -15px hsl(271 80% 8% / 0.8);
+
+    /* Glass */
+    --glass-bg: hsl(250 30% 12% / 0.55);
+    --glass-border: hsl(280 60% 80% / 0.12);
+
+    --transition-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background-image: var(--gradient-bg);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Unbounded', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  ::selection { background: hsl(var(--primary) / 0.5); color: white; }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+  .text-gradient-hero {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-cool {
+    background: var(--gradient-cool);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-purple { box-shadow: var(--shadow-glow); }
+  .glow-pink { box-shadow: var(--shadow-pink); }
+  .glow-cyan { box-shadow: var(--shadow-cyan); }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(280 60% 80% / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(280 60% 80% / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 18s infinite cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  @keyframes blob {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(40px,-30px) scale(1.1); }
+    66% { transform: translate(-30px,40px) scale(0.95); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-float { animation: float-slow 6s ease-in-out infinite; }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 30px hsl(var(--primary-glow) / 0.5); }
+    50% { box-shadow: 0 0 60px hsl(var(--primary-glow) / 0.85); }
+  }
+  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+  .marquee {
+    animation: marquee 30s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
