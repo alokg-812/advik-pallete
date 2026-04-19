@@ -1,26 +1,50 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import emailjs from "emailjs-com";
 
-const types = ["Portrait", "Digital", "Sketch", "Abstract", "Surprise me"];
+const types = ["Portrait", "Sketch", "Abstract", "Surprise me"];
 
 export const RequestForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [type, setType] = useState("Portrait");
-  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const fd = new FormData(e.currentTarget);
     const name = String(fd.get("name") || "").trim();
     const contact = String(fd.get("contact") || "").trim();
     const desc = String(fd.get("desc") || "").trim();
+    const driveLink = String(fd.get("drive") || "").trim();
+
     if (!name || !contact || !desc) {
       toast.error("Fill in name, contact and description ✋");
       return;
     }
-    setSubmitted(true);
-    toast.success("Request sent! Advik will reply soon ✨");
+
+    const templateParams = {
+      name,
+      contact,
+      type,
+      description: desc,
+      drive_link: driveLink || "Not provided",
+    };
+
+    emailjs
+      .send(
+        "service_l6w5egr",
+        "template_pc0b2te",
+        templateParams,
+        "3ROi7le9JWYzzqunT"
+      )
+      .then(() => {
+        setSubmitted(true);
+        toast.success("Request sent! Advik will reply soon ✨");
+      })
+      .catch(() => {
+        toast.error("Failed to send ❌");
+      });
   };
 
   return (
@@ -74,7 +98,6 @@ export const RequestForm = () => {
                       </button>
                     ))}
                   </div>
-                  <input type="hidden" name="type" value={type} />
                 </div>
 
                 <Field
@@ -84,32 +107,12 @@ export const RequestForm = () => {
                   textarea
                 />
 
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-3">
-                    Reference image (optional)
-                  </label>
-                  <label className="group flex items-center justify-between gap-4 p-4 rounded-2xl border-2 border-dashed border-border hover:border-primary/60 hover:bg-white/5 transition cursor-pointer">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 h-10 grid place-items-center rounded-xl bg-gradient-cool text-white">
-                        📎
-                      </span>
-                      <div>
-                        <div className="font-semibold text-sm">
-                          {fileName ?? "Drop or pick an image"}
-                        </div>
-                        <div className="text-xs text-muted-foreground">PNG, JPG up to 10MB</div>
-                      </div>
-                    </div>
-                    <span className="text-xs text-muted-foreground group-hover:text-foreground">Browse →</span>
-                    <input
-                      type="file"
-                      name="ref"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
-                    />
-                  </label>
-                </div>
+                {/* 🔥 NEW FIELD: Drive Link */}
+                <Field
+                  name="drive"
+                  label="Reference link (Google Drive / Instagram)"
+                  placeholder="Paste link to your image (optional)"
+                />
 
                 <button
                   type="submit"
@@ -138,10 +141,7 @@ export const RequestForm = () => {
                   Thanks for the request — I'll get back to you within 24 hours with a price + timeline. 💌
                 </p>
                 <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFileName(null);
-                  }}
+                  onClick={() => setSubmitted(false)}
                   className="mt-8 px-6 py-3 rounded-full glass hover:bg-white/10 font-semibold"
                 >
                   Send another
@@ -168,9 +168,12 @@ const Field = ({
 }) => {
   const cls =
     "w-full bg-white/5 border border-border rounded-2xl px-5 py-4 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:bg-white/10 focus:shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] transition";
+
   return (
     <div>
-      <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-3">{label}</label>
+      <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-3">
+        {label}
+      </label>
       {textarea ? (
         <textarea name={name} placeholder={placeholder} rows={4} className={cls} />
       ) : (
