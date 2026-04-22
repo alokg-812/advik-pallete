@@ -56,7 +56,7 @@ export const RequestForm = () => {
             Request a <span className="text-gradient-hero">painting</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
-            Tell me what you want and I'll bring it to life. Portraits start at $25 — DMs are open. 💸
+            Tell me what you want and I'll bring it to life. Portraits start at ₹499 only — DMs are open. 💸
           </p>
         </div>
 
